@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class WaypointMover : MonoBehaviour
 {
+    private const float MinLookDirectionSqrMagnitude = 0.0001f;
+
     [SerializeField] private Transform _pointsRoot;
     [SerializeField] private float _moveSpeed = 3f;
     [SerializeField] private float _arrivalDistance = 0.05f;
@@ -41,7 +43,8 @@ public class WaypointMover : MonoBehaviour
             _moveSpeed * Time.deltaTime);
 
         Vector3 direction = targetPoint.position - transform.position;
-        if (direction.sqrMagnitude > 0.0001f)
+
+        if (direction.sqrMagnitude > MinLookDirectionSqrMagnitude) 
             transform.forward = direction.normalized;
 
         if (( transform.position - targetPoint.position ).sqrMagnitude <= _arrivalDistance * _arrivalDistance)

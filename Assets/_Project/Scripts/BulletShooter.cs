@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BulletShooter : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Rigidbody _bulletPrefab;
     [SerializeField] private Transform _target;
     [SerializeField] private float _bulletSpeed = 10f;
     [SerializeField] private float _shootInterval = 1f;
@@ -47,18 +47,12 @@ public class BulletShooter : MonoBehaviour
 
         Vector3 direction = ( _target.position - transform.position ).normalized;
 
-        GameObject bullet = Instantiate(
+        Rigidbody bullet = Instantiate(
             _bulletPrefab,
             transform.position + direction,
             Quaternion.identity);
 
-        if (bullet.TryGetComponent(out Rigidbody bulletRigidbody) == false)
-        {
-            Debug.LogError($"{nameof(BulletShooter)}: Bullet prefab has no Rigidbody.", bullet);
-            return;
-        }
-
-        bulletRigidbody.transform.up = direction;
-        bulletRigidbody.linearVelocity = direction * _bulletSpeed;
+        bullet.transform.up = direction;
+        bullet.linearVelocity = direction * _bulletSpeed;
     }
 }
