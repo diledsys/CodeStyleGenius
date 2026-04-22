@@ -23,11 +23,13 @@ public class BulletShooter : MonoBehaviour
 
     private IEnumerator ShootingRoutine()
     {
-        while (true)
+        WaitForSeconds delay = new WaitForSeconds(_shootInterval);
+
+        while (enabled)
         {
             Shoot();
 
-            yield return new WaitForSeconds(_shootInterval);
+            yield return delay;
         }
     }
 

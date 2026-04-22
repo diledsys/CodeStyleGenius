@@ -44,7 +44,7 @@ public class WaypointMover : MonoBehaviour
 
         Vector3 direction = targetPoint.position - transform.position;
 
-        if (direction.sqrMagnitude > MinLookDirectionSqrMagnitude) 
+        if (direction.sqrMagnitude > MinLookDirectionSqrMagnitude)
             transform.forward = direction.normalized;
 
         if (( transform.position - targetPoint.position ).sqrMagnitude <= _arrivalDistance * _arrivalDistance)
@@ -53,9 +53,6 @@ public class WaypointMover : MonoBehaviour
 
     private void SelectNextPoint()
     {
-        _currentPointIndex++;
-
-        if (_currentPointIndex >= _points.Length)
-            _currentPointIndex = 0;
+        _currentPointIndex = ( _currentPointIndex + 1 ) % _points.Length;
     }
 }
